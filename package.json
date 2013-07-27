@@ -1,13 +1,27 @@
 {
-  "name": "application-name",
+  "name": "small",
+  "description": "a little place to read and write (by yourself)",
   "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "node app.js"
+  "authors": [
+    "David Byrd <david@medium.com> (https://github.com/davidbyrd11)"
+  ],
+  "keywords": [
+    "turtle",
+    "closure",
+    "front end",
+    "SPA"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Obvious/Small"
   },
   "dependencies": {
-    "express": "3.3.4",
-    "hjs": "*",
-    "less-middleware": "*"
+    "turtle": "0.0.1",
+    "express": "~3.3.4",
+    "less-middleware": "~0.1.12",
+    "shepherd": "~1.7.8",
+    "soynode": "~0.3.0",
+    "kew": "~0.1.7",
+    "redis": "~0.8.4"
   }
 }
