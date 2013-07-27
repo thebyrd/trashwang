@@ -1,10 +1,27 @@
 {namespace templates.parties autoescape="contextual"}
 
 /**
- * Renders all the parties
+ * a list of parties
+ * @param parties
  */
 {template .index}
-  Hello world
+  <header class="bar-title bar-title-negative">
+    <a class="button-prev" href="/">
+      Previous
+    </a>
+    <h1 class="title">Parties</h1>
+  </header>
+  <div class="content">
+    <input type="search" placeholder="Search">
+    <ul class="list">
+      {foreach $party in $parties}
+        <li>
+          <a href="/parties/{$party.id}">{$party.title}</a>
+          <span class="chevron"></span>
+        </li>
+      {/foreach}
+  </ul>
+  </div>
 {/template}
 
 /**

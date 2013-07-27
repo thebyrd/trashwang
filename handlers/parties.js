@@ -1,4 +1,7 @@
 module.exports = {
+  /**
+   * Selfie Signup Page
+   */
   index: function (builder) {
     return builder
       .builds('app.db')

@@ -9,6 +9,7 @@ goog.provide('obv.main')
 goog.require('goog.async.Deferred')
 
 goog.require('str8.screens.SignupScreen')
+goog.require('str8.screens.PartyListScreen')
 
 goog.require('obv.shell.action')
 goog.require('obv.shell')
@@ -42,9 +43,9 @@ var GLOBALS = {"baseUrl":"https://medium.com","buildLabel":"4888-cc64c93","contr
   services.initialize()
 
   // Set up and initialize the application.
- var app = services.get('app')
-      .defineSurface('container')
-      .registerScreen('', str8.screens.SignupScreen)
+  var app = services.get('app').defineSurface('container')
+  app.reqisterScreen('/parties', str8.screens.PartyListScreen)
+  app.registerScreen('', str8.screens.SignupScreen)
 
   // We perform a navigation to the initial path.  This should cause a screen to be
   // created which will bind to the pre-rendered DOM.

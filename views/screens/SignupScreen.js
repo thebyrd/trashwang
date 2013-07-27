@@ -10,6 +10,7 @@ goog.require('obv.shell.PrerenderedScreen')
 goog.require('obv.shell.ij')
 goog.require('obv.shell.action')
 goog.require('obv.shell.action.Scope')
+goog.require('obv.shell.CachePolicy')
 goog.require('templates.users')
 
 /**
