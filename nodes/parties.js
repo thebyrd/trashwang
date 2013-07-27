@@ -1,9 +1,6 @@
-
-
-module.exports = {
-  parties: function (db, params) {
-    return [
+var parties = [
       {
+        id: 0,
         title: 'foo',
         description: 'this is a RAD party',
         pictures: ['one.png', 'two.png'],
@@ -14,5 +11,41 @@ module.exports = {
         ]
       }
     ]
+
+module.exports = {
+  parties: function (db, params) {
+    return parties
+  },
+
+  partyById: function (db, partyId) {
+    if (!partyId) return null
+
+    console.log('$view', partyId)
+
+    for (var i = 0, party; party = parties[i]; i++) {
+      if (party.id == partyId) return party
+    }
+
+    return null
+
+    // db.hgetall('/party/' + partyId, function (err, party) {
+    //   if (err) return null
+    //   else return party
+    // })
+  },
+
+  createParty: function (db, body) {
+    if (!body) return null
+
+    console.log('$create', body)
+    return true
+  },
+
+  updatePartyById: function (db, body) {
+    if (!body) return null
+
+    console.log('$update',body)
+    return true
+    db.hmsetall()
   }
 }

@@ -3,6 +3,11 @@
     "get": "users.signup"
   },
   "/parties": {
-    "get": "parties.index"
+    "get": "parties.index",
+    "post": "parties.create"
+  },
+  "/parties/:partyId": {
+    "get": "parties.view",
+    "post": "parties.update"
   }
 }
