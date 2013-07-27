@@ -1,18 +1,5 @@
 {
   "/": {
-    "get": "post.index",
-    "screen": "Home"
-  },
-  "/new": {
-    "get": "post.new",
-    "screen": "Editor"
-  },
-  "/p/:postId": {
-    "get": "post.show",
-    "screen": "Post"
-  },
-  "/p/:postId/edit": {
-    "get": "post.edit",
-    "screen": "Editor"
+    "get": "users.signup"
   }
 }

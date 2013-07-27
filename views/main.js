@@ -8,19 +8,15 @@ goog.provide('obv.main')
 
 goog.require('goog.async.Deferred')
 
-goog.require('sml.screens.HomeScreen')
-goog.require('sml.screens.EditorScreen')
-goog.require('sml.screens.PostScreen')
+goog.require('str8.screens.SignupScreen')
 
 goog.require('obv.shell.action')
-goog.require('obv.data.ImageService')
 goog.require('obv.shell')
 goog.require('obv.shell.action')
 goog.require('obv.shell.ActivityMonitor')
 goog.require('obv.shell.App')
 goog.require('obv.shell.RequestService')
 goog.require('obv.shell.Services')
-goog.require('sml.services.PostService')
 goog.require('obv.shell.ij')
 
 //TODO (david) put this in the templates and make it relevant data
@@ -34,7 +30,6 @@ var GLOBALS = {"baseUrl":"https://medium.com","buildLabel":"4888-cc64c93","contr
   var services = window['__obv'] = new obv.shell.Services()
   var servicesRegistry = {
     // 'activity-monitor': new obv.shell.ActivityMonitor(),
-    'posts': new sml.services.PostService(),
     'request': new obv.shell.RequestService(),
     // 'image': new obv.data.ImageService(services),
     'app': new obv.shell.App('/', services, String(obv.shell.ij.get('productName')))
@@ -49,10 +44,7 @@ var GLOBALS = {"baseUrl":"https://medium.com","buildLabel":"4888-cc64c93","contr
   // Set up and initialize the application.
  var app = services.get('app')
       .defineSurface('container')
-      .registerScreen('', sml.screens.HomeScreen)
-      .registerScreen('new', sml.screens.EditorScreen)
-      .registerScreen('p/:postId', sml.screens.PostScreen)
-      .registerScreen('p/:postId/edit', sml.screens.EditorScreen)
+      .registerScreen('', str8.screens.SignupScreen)
 
   // We perform a navigation to the initial path.  This should cause a screen to be
   // created which will bind to the pre-rendered DOM.
