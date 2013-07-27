@@ -1,5 +1,8 @@
 {
   "/": {
     "get": "users.signup"
+  },
+  "/parties": {
+    "get": "parties.index"
   }
 }
