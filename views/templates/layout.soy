@@ -9,27 +9,32 @@
   <!DOCTYPE html>
   <html>
     {call .head_ data="all" /}
-    // Microdata for Google+
-    <body itemscope itemtype="http://schema.org/CreativeWork">
-      <div class="container" id="container">
-        <div {if $fromServerSide}id="prerendered"{/if} class="screen-content">
-          {$bodyHtml |noAutoescape}
-        </div>
+    <div class="container" id="container">
+      <div {if $fromServerSide}id="prerendered"{/if} class="screen-content">
+        {$bodyHtml |noAutoescape}
       </div>
-      <script src="http://localhost:9810/compile?id=Small"></script>
-    </body>
+    </div>
+    <script src="http://172.16.240.132:9810/compile?id=TrashWang"></script>
   </html>
 {/template}
 
 /**
  * Renders the head of the layout.
- * @param title
  */
 {template .head_ private="true"}
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" user-scalable="no">
-    <title>{$title}</title>
-    <link rel="stylesheet" href="//dnqgz544uhbo8.cloudfront.net/_/fp/css/main-base.VRoXWunx0ZwV2mx1hLYMBg.css">
+    <meta charset="utf-8">
+    <title>Trash Wang</title>
+
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/apple-touch-icon-57x57.png">
+    
+    <link rel="stylesheet" href="/less/ratchet.css">
   </head>
 {/template}

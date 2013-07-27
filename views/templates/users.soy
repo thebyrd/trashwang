@@ -1,0 +1,24 @@
+{namespace templates.users autoescape="contextual"}
+
+/**
+ * Selfie Signup
+ */
+{template .signup}
+  <header class="bar-title bar-title-negative">
+    <h1 class="title">ready to party?</h1>
+  </header>
+  <div class="content">
+    <div class="content-padded">
+      <p class="welcome">its pretty simple. post some pics of ur spot and what you need. we'll bring the party to you and make some trash wang.</p>
+      <form>
+        <div class="input-group">
+          <input type="text" placeholder="name">
+          <input type="text" placeholder="ur digits">
+        </div>
+        <button data-action="open-camera" class="button-main">take a selfie</button>
+      </form>
+      <input class="camera-input" type="file" accept="image/png" capture="camera" style="display: none">
+      <a class="button-negative button-block" href="/list">Let's Party &rarr;</button>
+    </div>
+  </div>
+{/template}
