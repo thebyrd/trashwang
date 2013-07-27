@@ -1,0 +1,34 @@
+{
+  "id": "Small",
+  "modules": {
+    "base": {
+      "inputs": [
+        "views/poly.js",
+        "views/main.js"
+      ],
+      "deps": []
+    }
+  },
+  "paths": [
+    "./views",
+    "./node_modules/turtle"
+  ],
+  "externs": [
+    "./node_modules/turtle/_externs.js"
+  ],
+  "global-scope-name": "_sml",
+  "closure-library": "./node_modules/turtle/node_modules/obvious-closure-library/closure/goog/",
+  "output-charset": "UTF-8",
+  "soy-use-injected-data": true,
+  "pretty-print": true,
+  "treat-warnings-as-errors": true,
+  "debug": false,
+  "define": {
+    "goog.DEBUG": false
+  },
+  "checks": {
+    "uselessCode": "OFF"
+  },
+  "mode": "WHITESPACE",
+  "level": "VERBOSE"
+}
