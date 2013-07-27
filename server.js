@@ -10,6 +10,8 @@ var app = express()
 var fs = require('fs')
 var path = require('path')
 
+var config = require('./config')
+
 app.use(express.favicon())
 app.use(express.logger('dev'))
 app.use(express.bodyParser())
@@ -37,7 +39,7 @@ soynode.compileTemplates(path.join(__dirname, 'views/templates'), function (err)
 app.use(express.static(path.join(__dirname, 'views')))
 app.use(express.errorHandler())
 
-app.db = require('redis').createClient()
+app.db = new require('./db')(config.redis)
 
 var shepherd = require('shepherd')
 
@@ -117,4 +119,5 @@ for (var route in routes) {
   }
 }
 
-app.listen(3000)
+app.listen(config.port)
+console.log('TrashWang on port', config.port)
