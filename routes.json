@@ -2,9 +2,15 @@
   "/": {
     "get": "users.signup"
   },
-  "/new-user": {
-    "post": "users.newUser"
+
+  "/users": {
+    "post": "users.create"
   },
+  "/login": {
+    "get": "users.login",
+    "post": "users.loginPost"
+  },
+
   "/parties": {
     "get": "parties.index",
     "post": "parties.create"

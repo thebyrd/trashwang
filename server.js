@@ -17,7 +17,7 @@ app.use(express.logger('dev'))
 app.use(express.bodyParser())
 app.use(express.methodOverride())
 app.use(express.cookieParser('#factsOnly'))
-app.use(express.session())
+app.use(express.session({secret: 'mad sus trashwang'}));
 app.use(app.router)
 app.use(require('less-middleware')({
   src: '/views',
@@ -39,7 +39,7 @@ soynode.compileTemplates(path.join(__dirname, 'views/templates'), function (err)
 app.use(express.static(path.join(__dirname, 'views')))
 app.use(express.errorHandler())
 
-app.db = new require('./db')(config.redis)
+app.db = new require('redis').createClient(config.redis.port, config.redis.host)
 
 var shepherd = require('shepherd')
 
