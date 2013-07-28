@@ -37,7 +37,8 @@ module.exports = {
   createParty: function (db, body) {
     if (!body) return null
 
-    console.log('$create', body)
+    // db.exists('/parties' + body.)
+
     return true
   },
 

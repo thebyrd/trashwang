@@ -13,7 +13,7 @@ module.exports = {
     return builder
       .builds('app.db')
       .builds('createParty')
-        .using('app.db', 'req.params.body')
+        .using('app.db', 'req.body')
       .builds('partyById')
         .using('app.db', 'createParty.id')
       .respond('templates.parties.show', 'partyById')
