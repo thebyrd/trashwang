@@ -6,16 +6,16 @@ module.exports = {
     return builder
       .builds('app.db')
       .builds('parties')
-        .using('app.db', 'req.params')
+        .using('app.db')
       .respond('templates.parties.index', 'parties')
   },
   create: function (builder) {
     return builder
       .builds('app.db')
       .builds('createParty')
-        .using('app.db', 'req.body')
+        .using('app.db', 'req.body', 'res.session.user')
       .builds('partyById')
-        .using('app.db', 'createParty.id')
+        .using('app.db', 'createParty')
       .respond('templates.parties.show', 'partyById')
   },
   show: function (builder) {

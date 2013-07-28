@@ -33,7 +33,7 @@ soynode.compileTemplates(path.join(__dirname, 'views/templates'), function (err)
 app.use(express.static(path.join(__dirname, 'views')))
 app.use(express.errorHandler())
 
-app.db = new require('redis').createClient(config.redis.port, config.redis.host)
+app.db = new require('then-redis').createClient()
 
 app.requireAuthenticated = function (req, res, next) {
   res.session.user ? res.redirect('/login') : next()
@@ -89,6 +89,7 @@ shepherd.Builder.prototype.redirect = function (route) {
       console.log('HANDLER ERROR:', e)
     })
     .then(function (data) {
+      console.log('redirecting in the directive')
       res.redirect(route)
     })
   }
