@@ -12,47 +12,25 @@ function getUserByEmail(db, userEmail, callback) {
 
 // TR▲SH W▲NG
 module.exports = {
-  createUser: function (db, body, session, res) {
-    var ret
+  createUser: function (db, body, req, res) {
     if (body && body.name && body.email && body.password) {
-
-    var defer = Q.defer()
-
-      db.exists('/users/index/byEmail/' + body.email, defer.makeNodeResolver())
-      return defer.promise.then(function (data) {
-        if (data == 1) {
-          res.redirect('/login')
-        } else {
-          db.incr('/users', function (err, newId) {
-            db.set('/users/index/byEmail/' + body.email, newId)
-            var user = {
-              id: newId,
-              email: body.email,
-              password: body.password,
-              photo: body.photo
-            }
-
-            db.hmset('/users/' + newId, user, function () {})
-            console.log('new user', user)
-            return session.user = user
-          })
-        }
+      console.log('$$$$$$$', req.files)
+      db.set('users:' + body.email, JSON.stringify(body), function (err, data) {
+        console.log(err||data)
       })
+      req.session.user = body
+      return body
     } else {
       res.redirect('/signup')
     }
   },
 
   loginUser: function (db, body, session, res) {
-    if (!body || !body.email || !body.password) return null
-
-    return getUserByEmail(db, body.email, function (err, user) {
-      if (user && (user.password == body.password)) {
-        session.user = user
-        res.redirect('/parties')
-      } else {
-        res.redirect('/login')
-      }
+    var defer = Q.defer()
+    db.get('users:'+body.email, defer.makeNodeResolver())
+    return derfer.promise.then(function (data) {
+      var user = JSON.parse(data)
+      return body.password == user.password
     })
   },
 

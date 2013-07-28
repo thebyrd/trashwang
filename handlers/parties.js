@@ -5,31 +5,20 @@ module.exports = {
   index: function (builder) {
     return builder
       .builds('app.db')
-      .builds('parties')
+      .builds('getAllParties')
         .using('app.db', 'req.params')
-      .respond('templates.parties.index', 'parties')
+      .respond('templates.parties.index', 'getAllParties')
   },
   create: function (builder) {
     return builder
       .builds('app.db')
       .builds('createParty')
         .using('app.db', 'req.body')
-      .builds('partyById')
-        .using('app.db', 'createParty.id')
-      .respond('templates.parties.show', 'partyById')
+      .respond('templates.parties.show', 'createParty')
   },
   show: function (builder) {
     return builder
       .builds('app.db')
-      .builds('partyById')
-        .using('app.db', 'req.params.partyId')
-      .respond('templates.parties.show', 'partyById')
-  },
-  update: function (builder) {
-    return builder
-      .builds('app.db')
-      .builds('updatePartyById')
-        .using('app.db', 'req.params.partyId')
       .builds('partyById')
         .using('app.db', 'req.params.partyId')
       .respond('templates.parties.show', 'partyById')

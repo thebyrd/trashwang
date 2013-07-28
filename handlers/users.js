@@ -30,13 +30,5 @@ module.exports = {
       .builds('createUser')
         .using('app.db', 'req.body', 'req.session', 'res')
       .redirect('/parties')
-  },
-
-  update: function (builder) {
-    return builder
-      .builds('app.db')
-      .builds('updateUser')
-        .using('app.db', 'req.body')
-      .redirect('/me')
   }
 }

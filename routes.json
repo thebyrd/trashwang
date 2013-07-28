@@ -2,7 +2,6 @@
   "/": {
     "get": "users.signup"
   },
-
   "/users": {
     "post": "users.create"
   },
@@ -10,7 +9,6 @@
     "get": "users.login",
     "post": "users.loginPost"
   },
-
   "/parties": {
     "get": "parties.index",
     "post": "parties.create"
@@ -19,7 +17,6 @@
     "get": "parties.new"
   },
   "/parties/:partyId": {
-    "get": "parties.show",
-    "post": "parties.update"
+    "get": "parties.show"
   }
 }
