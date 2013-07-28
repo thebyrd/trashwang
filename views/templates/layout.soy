@@ -9,12 +9,45 @@
   <!DOCTYPE html>
   <html>
     {call .head_ data="all" /}
+    <body>
+    <div class="container" id="container">
+      <div {if $fromServerSide}id="prerendered"{/if} class="screen-content">
+        <div class="coffin">
+          <ul class="nav">
+            <li>
+              <a data-action="toggle-coffin" href="/new-party">New Party</a>
+              <a data-action="toggle-coffin" href="/parties">Dashboard<a>
+              <a data-action="toggle-coffin" href="/me">Settings</a>
+            </li>
+          </ul>
+        </div>
+        <div class="page">
+          {$bodyHtml |noAutoescape}
+        </div>
+      </div>
+    </div>
+    <script src="http://172.16.240.132:9810/compile?id=TrashWang"></script>
+    </body>
+  </html>
+{/template}
+
+/**
+ * Renders layout without coffin
+* @param bodyHtml
+ * @param fromServerSide
+ */
+{template .simple}
+   <!DOCTYPE html>
+  <html>
+    {call .head_ data="all" /}
+    <body>
     <div class="container" id="container">
       <div {if $fromServerSide}id="prerendered"{/if} class="screen-content">
         {$bodyHtml |noAutoescape}
       </div>
     </div>
-    <script src="http://172.16.240.251:9810/compile?id=TrashWang"></script>
+    <script src="http://172.16.240.132:9810/compile?id=TrashWang"></script>
+    </body>
   </html>
 {/template}
 
@@ -36,6 +69,6 @@
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/apple-touch-icon-57x57.png">
 
     <link rel="stylesheet" href="/less/ratchet.css">
-    <link rel="stylesheet" href="/less/signup.css">
+    <link rel="stylesheet" href="/less/custom.css">
   </head>
 {/template}

@@ -78,5 +78,10 @@ module.exports = {
     if (!user) return null
     ;delete user.email
     return user
+  },
+  simpleLayout: function (req) {
+    return {
+      layout: 'templates.layout.simple'
+    }
   }
 }

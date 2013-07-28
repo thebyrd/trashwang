@@ -1,9 +1,3 @@
-// TODO
-// add support for compiling and serving front end javascript for production & dev
-// pass screen/route registry to main.js
-// add variants
-// add schema support
-
 var express = require('express')
 var app = express()
 
