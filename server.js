@@ -58,7 +58,10 @@ shepherd.Builder.prototype.respond = function (template, key) {
     .then(function (data) {
       data = key ? data[key] : data
       if (req.query.apiv) {
-        res.json(data)
+        res.json( {
+          success: true,
+          payload: data
+        })
       } else {
         var body = soynode.render(template, data)
         data.bodyHtml = body
