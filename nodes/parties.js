@@ -1,49 +1,66 @@
-var Q = require('kew')
+function getPartyById(db, partyId) {
+  return db.get('/party/' + partyId)
+}
 
 module.exports = {
   parties: function (db) {
-    var defer = Q.defer()
+    return db.smembers('/parties')
+      .then(function (partyIds) {
+        console.log('partyIds', partyIds)
+        if (!partyIds) {
+          return []
+        } else {
+          var content = getPartyById(partyIds[0])
+          for (var i = 1; i < partyIds.length; i++) {
+            content.then(getPartyById(partyIds[i]))
+          }
 
-    db.smembers('/parties', defer.makeNodeResolver())
-    return defer.promise.then(function (err, partyIds) {
-      if (err) console.log(err)
-      if (err.length == 0) return {parties: []}
-      var promises = []
-
-      for (var i = 0; i < partyIds.length; i++) {
-        promises.push(partyIds[i])
-      }
-
-      return Q.all(promises)
-        .then(function (content) {
-          return {parties: content}
-        })
-    })
+          return content
+        }
+      })
+      .then(function (content) {
+        return {parties: content}
+      })
   },
 
   partyById: function (db, partyId) {
-    if (!partyId) return null
+    if (!createParty) return null
 
-    console.log('$view', partyId)
-
-    for (var i = 0, party; party = parties[i]; i++) {
-      if (party.id == partyId) return {party: party}
-    }
-
-    return null
-
-    // db.hgetall('/party/' + partyId, function (err, party) {
-    //   if (err) return null
-    //   else return party
-    // })
+    return createParty.then(function (party) {
+      return db.hgetall('/parties/' + partyId)
+    })
   },
 
-  createParty: function (db, body) {
+  // expects, title,  description
+  createParty: function (db, body, user) {
+    console.log('create', body, user)
     if (!body) return null
 
-    // db.exists('/parties' + body.)
+    return db.exists('/parties/index/byTitle' + body.title)
+      .then(function (partyExists) {
+        if (partyExists == 1) {
+          throw new Error('party exists')
+        } else {
+          return db.incr('/party')
+        }
+      })
+      .then(function (newId) {
+        var party = {
+          id: newId,
+          title: body.title,
+          description: body.description,
+          userId: 0, //user.id,
+          open: true
+        }
 
-    return true
+        db.set('/parties/index/byTitle/' + party.title, party.id, function () {})
+        db.sadd('/parties/index/byUserId/' + 0, party.id, function () {})
+        db.sadd('/parties/index/byAvailability', party.id, function () {})
+
+        console.log('new party', party)
+        db.hmset('/parties/' + newId, party)
+        return party
+      })
   },
 
   updatePartyById: function (db, body) {
