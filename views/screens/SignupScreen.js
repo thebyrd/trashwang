@@ -49,6 +49,7 @@ str8.screens.SignupScreen.prototype.decorate = function () {
  * Clicks the hidden input=file to queue camera/image
  */
 str8.screens.SignupScreen.prototype._openCamera = function () {
+  console.log('opening camera')
   document.activeElement.blur()
   var cameraInput = this.el.getElementsByClassName('camera-input')[0]
   cameraInput.click()
