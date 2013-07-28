@@ -128,3 +128,14 @@ body {
   from { background-position: 0 0; }
   to { background-position: 100% 0; }
 }
+
+.login {
+  float: right;
+}
+
+.login a {
+  color: rgba(255,255,255,0.9);
+  font-weight: 600;
+  font-size: 14px;
+  text-shadow: 1px 1px rgba(10,10,10,0.9);
+}
