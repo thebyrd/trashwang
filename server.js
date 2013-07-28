@@ -79,6 +79,25 @@ shepherd.NodeInstance.prototype.respond = function () {
   return this._builder.respond.apply(this._builder, arguments)
 }
 
+shepherd.Builder.prototype.redirect = function (route) {
+  var builder = this
+  var fn = function (req, res, next) {
+    var promise = builder.run({req: req, res: res, app: app})
+    promise
+    .fail(function (e) {
+      console.log('HANDLER ERROR:', e)
+    })
+    .then(function (data) {
+      res.redirect(route)
+    })
+  }
+  return fn
+}
+
+shepherd.NodeInstance.prototype.redirect = function () {
+  return this._builder.redirect.apply(this._builder, arguments)
+}
+
 var graph = new shepherd.Graph()
 
 function getFunctionParams (f) {
