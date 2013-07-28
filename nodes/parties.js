@@ -14,7 +14,7 @@ var parties = [
 
 module.exports = {
   parties: function (db, params) {
-    return parties
+    return {parties: parties}
   },
 
   partyById: function (db, partyId) {
