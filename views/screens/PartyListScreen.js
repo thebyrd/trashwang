@@ -3,7 +3,6 @@
 /**
  * @fileoverview screen for a list of parties
  */
- 
 goog.provide('str8.screens.PartyListScreen')
 
 goog.require('obv.shell.PrerenderedScreen')
@@ -27,18 +26,23 @@ str8.screens.PartyListScreen = function (services, params, data) {
    * @private {obv.shell.Services}
    */
   this._services = services
+
+  /**
+   * @private obv.shell.RequestService
+   */
+  this._request = this._services.get('request')
 }
 goog.inherits(str8.screens.PartyListScreen, obv.shell.PrerenderedScreen)
 
-/** @override */
-str8.screens.PartyListScreen.prototype.cachePolicy = new obv.shell.CachePolicy.CacheableForHistory(3600)
+str8.screens.PartyListScreen.prototype.cachePolicy = new obv.shell.CachePolicy.Expirable(1000 * 60) // 1 minute obv.shell.CachePolicy.INFINITELY_CACHE
 
 /** @override */
 str8.screens.PartyListScreen.prototype.createDom = function () {
-
-}
-
-/** @override */
-str8.screens.PartyListScreen.prototype.decorate = function () {
-  
+  this._request.get('/parties?apiv=1', {json: true})
+    .addCallback(function (response) {
+      this.el.innerHTML = obv.shell.ij.render(templates.parties.index, {parties: response.parties})
+    }, this)
+    .addErrback(function (err) {
+      throw err
+    })
 }
