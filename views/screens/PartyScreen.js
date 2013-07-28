@@ -28,7 +28,7 @@ str8.screens.PartyScreen = function (services, params, data) {
   this._services = services
 
   /**
-   * @private obv.shell.RequestService
+   * @private {obv.shell.RequestService}
    */
   this._request = this._services.get('request')
 

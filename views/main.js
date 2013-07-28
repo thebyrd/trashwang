@@ -11,6 +11,7 @@ goog.require('goog.async.Deferred')
 goog.require('str8.screens.SignupScreen')
 goog.require('str8.screens.PartyListScreen')
 goog.require('str8.screens.PartyScreen')
+goog.require('str8.screens.NewPartyScreen')
 
 goog.require('str8.ui.SiteNav')
 
@@ -51,6 +52,7 @@ goog.require('obv.shell.ij')
                     .registerScreen('', str8.screens.SignupScreen)
                     .registerScreen('parties', str8.screens.PartyListScreen)
                     .registerScreen('parties/:postId', str8.screens.PartyScreen)
+                    .registerScreen('new-party', str8.screens.NewPartyScreen)
   // We perform a navigation to the initial path.  This should cause a screen to be
   // created which will bind to the pre-rendered DOM.
   var startLocation = location.pathname.substr(1) + location.hash
@@ -61,8 +63,8 @@ goog.require('obv.shell.ij')
       .addErrback(function (e) { obv.shell.error('Initial navigate failed', e) })
 
   // setup actions
-  // obv.shell.action.on('navigate', function (action) {
-  //   services.get('app').navigate(action.value)
-  // })
+  obv.shell.action.on('navigate', function (action) {
+    services.get('app').navigate(action.value)
+  })
 
 })()

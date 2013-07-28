@@ -124,6 +124,21 @@ body {
   text-shadow: 2px 2px #111;
 }
 
+.eventual-slider {
+  display: none;
+}
+
+.slider img {
+  width: 100%;
+}
+.message {
+  padding-bottom: 10px; /* TODO (tess) do a better type treatment */
+}
+
+.camera-input {
+  display: none;
+}
+
 @-webkit-keyframes animatedBackground {
   from { background-position: 0 0; }
   to { background-position: 100% 0; }
