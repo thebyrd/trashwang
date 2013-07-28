@@ -19,7 +19,9 @@ module.exports = {
       .builds('app.db')
       .builds('loginUser')
         .using('app.db', 'req.body', 'req.session', 'res')
-      .redirect('/')
+      .builds('continueOrRedirect')
+        .using('res', 'res.session')
+      .redirect('/parties')
   },
 
   create: function (builder) {
