@@ -41,6 +41,10 @@ app.use(express.errorHandler())
 
 app.db = new require('redis').createClient(config.redis.port, config.redis.host)
 
+app.requireAuthenticated = function (req, res, next) {
+  res.session.user ? res.redirect('/login') : next()
+}
+
 var shepherd = require('shepherd')
 
 shepherd.NodeInstance.prototype.createHandler = function () {
