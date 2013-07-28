@@ -2,11 +2,9 @@
   "/": {
     "get": "users.signup"
   },
-
   "/new-user": {
     "post": "users.newUser"
   },
-
   "/parties": {
     "get": "parties.index",
     "post": "parties.create"
