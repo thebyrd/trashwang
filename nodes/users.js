@@ -4,5 +4,11 @@ module.exports = {
     return {
       title: 'Trash Wang'
     }
+  },
+
+  someOtherNode: function (db) {
+    return {
+      title: 'TRASH▲WANG'
+    }
   }
 }

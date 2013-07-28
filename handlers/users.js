@@ -7,6 +7,14 @@ module.exports = {
     .builds('app.db')
     .builds('someNode')
       .using('app.db')
-    .respond('templates.users.signup', 'someNode')      
+    .respond('templates.users.signup', 'someNode')
+  },
+
+  newUser: function (builder) {
+    return builder
+      .builds('app.db')
+      .builds('someOtherNode')
+        .using('app.db')
+      .respond('templates.users.temp','someOtherNode')
   }
 }

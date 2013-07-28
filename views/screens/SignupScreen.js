@@ -3,7 +3,7 @@
 /**
  * @fileoverview screen for selfie signup
  */
- 
+
 goog.provide('str8.screens.SignupScreen')
 
 goog.require('obv.shell.PrerenderedScreen')
@@ -48,5 +48,16 @@ str8.screens.SignupScreen.prototype.decorate = function () {
  * Clicks the hidden input=file to queue camera/image
  */
 str8.screens.SignupScreen.prototype._openCamera = function () {
-  this.el.getElementsByClassName('camera-input')[0].click()
+  var cameraInput = this.el.getElementsByClassName('camera-input')[0]
+  cameraInput.click()
+  var curr = this
+  cameraInput.onchange = function (event) {
+    console.log('it changed')
+    var files = event.target.files
+    var file = files[0]
+    if (file) {
+      var submitButton = document.getElementById('new-user-submit')
+      submitButton.click()
+    }
+  }
 }

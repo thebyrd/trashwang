@@ -1,5 +1,9 @@
 {
   "/": {
     "get": "users.signup"
+  },
+
+  "/new-user": {
+    "post": "users.newUser"
   }
 }
