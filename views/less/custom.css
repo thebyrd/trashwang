@@ -129,13 +129,17 @@ body {
   to { background-position: 100% 0; }
 }
 
-.login {
+.login-link {
   float: right;
 }
 
-.login a {
+.login-link a {
   color: rgba(255,255,255,0.9);
   font-weight: 600;
   font-size: 14px;
   text-shadow: 1px 1px rgba(10,10,10,0.9);
+}
+
+.login .headline {
+  margin-top: 20px;
 }

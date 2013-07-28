@@ -19,7 +19,8 @@
           <button class="button-negative button-block" type="submit" style="display:none" id="new-user-submit"></button>
           <button data-action="open-camera" class="button-main button-block">sign in with a selfie</button>
         </form>
-        <div class="login">
+        <div class="login-link">
+          <!--<a href="#" onclick="window.location='/login'">Already have an account?</a>-->
           <a href="/login">Already have an account?</a>
         </div>
       </div>
@@ -32,17 +33,17 @@
  * login
  */
 {template .login}
-<div class="content signup">
+<div class="content signup login">
   <div id="animatedArea">
     <div class="content-padded">
       <div class="headline">
-        <h1>TR▲SH W▲NG</h1>
+        <h1>UR B▲CK ?</h1>
         <form action="/login" enctype="multipart/form-data" method="post">
           <div class="input-group">
             <input type="password" name="email" placeholder="email">
             <input type="password" name="password" placeholder="password">
           </div>
-          <button class="button-negative button-block" type="submit" id="user-login">Let's Party &rarr;</button>
+          <button class="button-main button-block" type="submit" id="user-login">Let's Party &rarr;</button>
         </form>
     </div>
   </div>

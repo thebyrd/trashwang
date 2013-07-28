@@ -31,11 +31,10 @@ str8.screens.LoginScreen = function (services, params, data) {
 goog.inherits(str8.screens.LoginScreen, obv.shell.PrerenderedScreen)
 
 /** @override */
-str8.screens.LoginScreen.prototype.cachePolicy = obv.shell.CachePolicy.INFINITELY_CACHE
+str8.screens.LoginScreen.prototype.cachePolicy = new obv.shell.CachePolicy.Expirable(1000 * 60)
 
 /** @override */
 str8.screens.LoginScreen.prototype.createDom = function () {
   this.el.innerHTML = obv.shell.ij.render(templates.users.login, {})
-  this.decorate()
 }
 
