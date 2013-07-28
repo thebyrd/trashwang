@@ -33,5 +33,9 @@ module.exports = {
       .builds('partyById')
         .using('app.db', 'req.params.partyId')
       .respond('templates.parties.show', 'partyById')
+  },
+  new: function (builder) {
+    return builder
+      .respond('templates.parties.newParty')
   }
 }

@@ -14,30 +14,33 @@ function getUserByEmail(db, userEmail, callback) {
 module.exports = {
   createUser: function (db, body, session, res) {
     var ret
-    if (!body) return null
+    if (body && body.name && body.email && body.password) {
 
     var defer = Q.defer()
 
-    db.exists('/users/index/byEmail/' + body.email, defer.makeNodeResolver())
-    return defer.promise.then(function (data) {
-      if (data == 1) {
-        res.redirect('/login')
-      } else {
-        db.incr('/users', function (err, newId) {
-          db.set('/users/index/byEmail/' + body.email, newId)
-          var user = {
-            id: newId,
-            email: body.email,
-            password: body.password,
-            photo: body.photo
-          }
+      db.exists('/users/index/byEmail/' + body.email, defer.makeNodeResolver())
+      return defer.promise.then(function (data) {
+        if (data == 1) {
+          res.redirect('/login')
+        } else {
+          db.incr('/users', function (err, newId) {
+            db.set('/users/index/byEmail/' + body.email, newId)
+            var user = {
+              id: newId,
+              email: body.email,
+              password: body.password,
+              photo: body.photo
+            }
 
-          db.hmset('/users/' + newId, user, function () {})
-          console.log('new user', user)
-          return session.user = user
-        })
-      }
-    })
+            db.hmset('/users/' + newId, user, function () {})
+            console.log('new user', user)
+            return session.user = user
+          })
+        }
+      })
+    } else {
+      res.redirect('/signup')
+    }
   },
 
   loginUser: function (db, body, session, res) {
