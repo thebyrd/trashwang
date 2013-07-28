@@ -7,7 +7,7 @@
     "post": "parties.create"
   },
   "/parties/:partyId": {
-    "get": "parties.view",
+    "get": "parties.show",
     "post": "parties.update"
   }
 }
