@@ -1,22 +1,13 @@
 var Q = require('kew')
 
-function getUserById(db, userId) {
-  var ret = null
-  db.hgetall('/users/' + userId, function (err, user) {
-    console.log('getUserById', err, user)
-    ret = (err ? err : user)
-  })
-  return ret
+function getUserById(db, userId, callback) {
+  db.hgetall('/users/' + userId, callback)
 }
 
-function getUserByEmail(db, userEmail) {
-  var ret = null
+function getUserByEmail(db, userEmail, callback) {
   db.get('/users/index/byEmail/' + userEmail, function (err, userId) {
-    console.log('getUserByEmail', err, userId)
-    var user = getUserById(db, userId)
-    ret = (err ? err : user)
+    getUserById(db, userId, callback)
   })
-  return ret
 }
 
 // TR▲SH W▲NG
@@ -24,8 +15,6 @@ module.exports = {
   createUser: function (db, body, session, res) {
     var ret
     if (!body) return null
-
-    console.log(body)
 
     var defer = Q.defer()
 
@@ -54,14 +43,14 @@ module.exports = {
   loginUser: function (db, body, session, res) {
     if (!body || !body.email || !body.password) return null
 
-    var user = getUserByEmail(db, body.email)
-    console.log('tried to login with user:', user)
-    if (user && (user.password === body.password)) {
-      session.user = user
-      res.redirect('/parties')
-    } else {
-      res.redirect('/login')
-    }
+    return getUserByEmail(db, body.email, function (err, user) {
+      if (user && (user.password == body.password)) {
+        session.user = user
+        res.redirect('/parties')
+      } else {
+        res.redirect('/login')
+      }
+    })
   },
 
   continueOrRedirect: function (res, session) {

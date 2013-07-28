@@ -1,22 +1,7 @@
 var Q = require('kew')
 
-// var parties = [
-//       {
-//         id: 0,
-//         title: 'foo',
-//         description: 'this is a RAD party',
-//         pictures: ['one.png', 'two.png'],
-//         required: [
-//           {title: 'six-pack', fullfilled: 3, needed: 4, contributorUserIds: [123, 456, 789]},
-//           {title: 'speaker', fullfilled: 2, needed: 2, contributorUserIds: [456, 789]},
-//           {title: 'bagels', fullfilled: 0, needed: 12, contributorUserIds: []}
-//         ]
-//       }
-//     ]
-
 module.exports = {
   parties: function (db) {
-    console.log('get parties')
     var defer = Q.defer()
 
     db.smembers('/parties', defer.makeNodeResolver())
