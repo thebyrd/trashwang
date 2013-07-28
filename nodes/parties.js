@@ -7,25 +7,27 @@ module.exports = {
     return db.smembers('/parties')
       .then(function (partyIds) {
         console.log('partyIds', partyIds)
-        if (!partyIds) return []
+        if (!partyIds) {
+          return []
+        } else {
+          var content = getPartyById(partyIds[0])
+          for (var i = 1; i < partyIds.length; i++) {
+            content.then(getPartyById(partyIds[i]))
+          }
 
-        var content = []
-        for (var i = 0; i < partyIds.length; i++) {
-          content.push(getPartyById(partyIds[i]))
+          return content
         }
-
-        return content
       })
       .then(function (content) {
         return {parties: content}
       })
   },
 
-  partyById: function (db, createParty) {
+  partyById: function (db, partyId) {
     if (!createParty) return null
 
     return createParty.then(function (party) {
-      return db.hgetall('/parties/' + party.id)
+      return db.hgetall('/parties/' + partyId)
     })
   },
 
