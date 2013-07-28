@@ -17,7 +17,6 @@ app.use(require('less-middleware')({
   src: '/views',
   compress: true
 }))
-
 var soynode = require('soynode')
 soynode.setOptions({
   outputDir: '/tmp/soy',
@@ -27,9 +26,8 @@ soynode.setOptions({
 })
 soynode.compileTemplates(path.join(__dirname, 'views/templates'), function (err) {
   if (err) throw err
-  console.log('Matador is fighting bulls on port 3000.')
+  console.log('TrashWang is getting turnt on port 3000.')
 })
-
 app.use(express.static(path.join(__dirname, 'views')))
 app.use(express.errorHandler())
 
@@ -140,4 +138,3 @@ for (var route in routes) {
 }
 
 app.listen(config.port)
-console.log('TrashWang on port', config.port)

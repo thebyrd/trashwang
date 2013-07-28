@@ -1,55 +1,24 @@
 var Q = require('kew')
 
 module.exports = {
-  parties: function (db) {
-    var defer = Q.defer()
-
-    db.smembers('/parties', defer.makeNodeResolver())
-    return defer.promise.then(function (err, partyIds) {
-      if (err) console.log(err)
-      if (err.length == 0) return {parties: []}
-      var promises = []
-
-      for (var i = 0; i < partyIds.length; i++) {
-        promises.push(partyIds[i])
-      }
-
-      return Q.all(promises)
-        .then(function (content) {
-          return {parties: content}
-        })
-    })
-  },
-
   partyById: function (db, partyId) {
-    if (!partyId) return null
-
-    console.log('$view', partyId)
-
-    for (var i = 0, party; party = parties[i]; i++) {
-      if (party.id == partyId) return {party: party}
-    }
-
-    return null
-
-    // db.hgetall('/party/' + partyId, function (err, party) {
-    //   if (err) return null
-    //   else return party
-    // })
+    var defer = Q.defer()
+    db.get('parties:' + partyId, defer.makeNodeResolver())
+    return defer.promise
   },
 
   createParty: function (db, body) {
-    if (!body) return null
-
-    // db.exists('/parties' + body.)
-
-    return true
+    if (body && body.name && body.email && body.password) {
+      var defer = Q.defer()
+      body.id = require('node-uuid').v1()
+      db.set('parties:' + body.id, JSON.stringify(body))
+      return body
+    } else {
+      res.redirect('/new-party')
+    }
   },
-
-  updatePartyById: function (db, body) {
-    if (!body) return null
-
-    console.log('$update',body)
-    return true
+  
+  getAllParties: function (db) {
+    return {parties: []} //TODO (artem) put search here
   }
 }
