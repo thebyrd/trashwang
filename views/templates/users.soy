@@ -16,10 +16,13 @@
             <input type="password" name="password" placeholder="ur pw">
             <input class="camera-input" type="file" accept="image/png" capture="camera" name="picture">
           </div>
+          <button class="button-negative button-block" type="submit" style="display:none" id="new-user-submit"></button>
           <button data-action="open-camera" class="button-main button-block">sign in with a selfie</button>
-          <button class="button-negative button-block" type="submit" style="display:none" id="new-user-submit">Let's Party &rarr;</button>
         </form>
-        <center><a href="/login">I already have a login</a></center>
+        <div class="login-link">
+          <!--<a href="#" onclick="window.location='/login'">Already have an account?</a>-->
+          <a href="/login">Already have an account?</a>
+        </div>
       </div>
     </div>
   </div>
@@ -27,27 +30,20 @@
 {/template}
 
 /**
- * create a new user
- */
-{template .temp}
-  <h1>straight trashwang</h1>
-{/template}
-
-/**
  * login
  */
 {template .login}
-<div class="content signup">
+<div class="content signup login">
   <div id="animatedArea">
     <div class="content-padded">
       <div class="headline">
-        <h1>TR▲SH W▲NG</h1>
+        <h1>UR B▲CK ?</h1>
         <form action="/login" enctype="multipart/form-data" method="post">
           <div class="input-group">
-            <input type="text" name="email" placeholder="email">
-            <input type="text" name="password" placeholder="password">
+            <input type="password" name="email" placeholder="email">
+            <input type="password" name="password" placeholder="password">
           </div>
-          <button class="button-negative button-block" type="submit" id="new-user-submit">Let's Party &rarr;</button>
+          <button class="button-main button-block" type="submit" id="user-login">Let's Party &rarr;</button>
         </form>
     </div>
   </div>
