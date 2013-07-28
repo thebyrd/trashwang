@@ -23,7 +23,7 @@ module.exports = {
     console.log('$view', partyId)
 
     for (var i = 0, party; party = parties[i]; i++) {
-      if (party.id == partyId) return party
+      if (party.id == partyId) return {party: party}
     }
 
     return null
