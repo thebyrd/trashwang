@@ -8,6 +8,11 @@
   },
 
   "/parties": {
-    "get": "parties.index"
+    "get": "parties.index",
+    "post": "parties.create"
+  },
+  "/parties/:partyId": {
+    "get": "parties.show",
+    "post": "parties.update"
   }
 }
