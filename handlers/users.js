@@ -15,6 +15,6 @@ module.exports = {
       .builds('app.db')
       .builds('someOtherNode')
         .using('app.db')
-      .respond('templates.users.temp','someOtherNode')
+      .redirect('/parties')
   }
 }
