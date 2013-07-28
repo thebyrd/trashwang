@@ -5,6 +5,9 @@ module.exports = {
   signup: function (builder) {
     return builder
       .respond('templates.users.signup')
+    .builds('simpleLayout')
+      .using('req')
+    .respond('templates.users.signup', 'simpleLayout')
   },
 
   login: function (builder) {

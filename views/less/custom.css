@@ -2,6 +2,10 @@ html,
 body {
   overflow-x: hidden;
 }
+body {
+  -webkit-perspective: 800;
+  -webkit-transform-style: preserve-3d;
+}
 .page {
   position: relative;
   z-index: 10;
@@ -84,12 +88,6 @@ body {
 }
 .coffin-remote-bar:last-child {
   margin-bottom: 4px;
-}
-
-/* Sign up stuff */
-body {
-  -webkit-perspective: 800;
-  -webkit-transform-style: preserve-3d;
 }
 
 .signup {
