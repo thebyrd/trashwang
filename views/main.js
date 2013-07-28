@@ -9,6 +9,7 @@ goog.provide('obv.main')
 goog.require('goog.async.Deferred')
 
 goog.require('str8.screens.SignupScreen')
+goog.require('str8.screens.LoginScreen')
 goog.require('str8.screens.PartyListScreen')
 goog.require('str8.screens.PartyScreen')
 
@@ -49,6 +50,7 @@ goog.require('obv.shell.ij')
   var app = services.get('app')
                     .defineSurface('container')
                     .registerScreen('', str8.screens.SignupScreen)
+                    .registerScreen('login', str8.screens.LoginScreen)
                     .registerScreen('parties', str8.screens.PartyListScreen)
                     .registerScreen('parties/:postId', str8.screens.PartyScreen)
   // We perform a navigation to the initial path.  This should cause a screen to be
