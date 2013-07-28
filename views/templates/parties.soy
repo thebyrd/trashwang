@@ -5,10 +5,7 @@
  * @param parties
  */
 {template .index}
-  <header class="bar-title bar-title-negative">
-    <a class="button-prev" href="/">
-      Previous
-    </a>
+  <header class="bar-title">
     <h1 class="title">Parties</h1>
   </header>
   <div class="content">
@@ -22,15 +19,49 @@
           <span class="chevron"></span>
         </li>
       {/foreach}
-  </ul>
+    </ul>
   </div>
 {/template}
 
 /**
  * Renders a particular party
+ * @param party
  */
 {template .show}
-  Hello world
+  <header class="bar-title">
+    <a class="button-prev" href="/parties">
+      Previous
+    </a>
+    <h1 class="title">{$party.title}</h1>
+  </header>
+  <div class="content">
+    <div class="slider">
+      <ul>
+        <li>
+          <img src="http://placehold.it/400x200">
+        </li>
+        <li>
+          <img src="http://placehold.it/400x200">
+        </li>
+        <li>
+          <img src="http://placehold.it/400x200">
+        </li>
+      </ul>
+    </div>
+    <h1>{$party.title}</h1>
+    <p>{$party.description}</p>
+    <ul class="list">
+      <li class="list-divider">Trash Wang</li>
+    {foreach $want in $party.required}
+      <li>
+        <a data-action="bring-item">
+          {$want.title}
+          <span class="count">{$want.fullfilled} / {$want.needed}</span>
+        </a>
+      </li>  
+    {/foreach}
+    </ul>
+  </div>
 {/template}
 
 /**

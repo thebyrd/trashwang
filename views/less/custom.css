@@ -1,0 +1,132 @@
+html,
+body {
+  overflow-x: hidden;
+}
+.page {
+  position: relative;
+  z-index: 10;
+  background: #fff;
+  width: auto;
+  border-radius: 5px;
+  box-shadow: -4px 0 10px -5px rgba(0, 0, 0, 0.8);
+  -webkit-backface-visibility: hidden;
+  min-height: 1000px;
+  /*-webkit-perspective: 1000; Didn't play nice with ratchet */
+}
+.coffin {
+  display: none;
+  z-index: 5;
+  background: #222;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 280px;
+  margin-left: 0;
+  overflow: auto;
+}
+.coffin-open,
+.coffin-pulling {
+  display: block;
+}
+.coffin .pillow {
+  padding-left: 25px;
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 30px;
+  color: #CCC;
+  background: #111;
+  border-bottom: 1px solid black;
+}
+.coffin .nav li {
+  margin-bottom: 0;
+}
+.coffin .nav li a {
+  display: block;
+  padding-left: 25px;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 50px;
+  color: #fff;
+  text-decoration: none;
+  text-shadow: 0 -1px rgba(0, 0, 0, 0.8);
+  border-bottom: 1px solid #111;
+  box-shadow: 0 1px 1px #333;
+}
+.coffin .nav li a:hover,
+.coffin .nav li a.active {
+  background: rgba(0, 0, 0, 0.1);
+}
+.coffin-remote:hover,
+.coffin-remote {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  border: 0;
+  padding: 7px 10px;
+  background: #fff;
+  opacity: 1;
+        transition: opacity .4s;
+     -o-transition: opacity .4s; /* Opera */
+   -moz-transition: opacity .4s; /* Firefox 4 */
+-webkit-transition: opacity .4s; /* Safari and Chrome */
+
+}
+.coffin-remote:hover {
+  opacity: .8;
+}
+.coffin-remote-bar {
+  display: block;
+  width: 18px;
+  height: 2px;
+  margin-top: 4px;
+  background-color: #ddd;
+}
+.coffin-remote-bar:last-child {
+  margin-bottom: 4px;
+}
+
+/* Sign up stuff */
+body {
+  -webkit-perspective: 800;
+  -webkit-transform-style: preserve-3d;
+}
+
+.signup {
+  transform: translate3d(0,0,0);
+  -webkit-transform: translate3d(0,0,0);
+  -webkit-backface-visibility: hidden;
+}
+
+#animatedArea {
+  background: url('../img/nebula.jpg');
+  background-position: 0 0;
+  background-repeat: repeat-x;
+  height: 550px;
+  width: 320px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+
+  -webkit-animation: animatedBackground 40s linear infinite;
+  transform: translate3d(0,0,0);
+  -webkit-transform: translate3d(0,0,0);
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000;
+}
+
+
+.signup .headline {
+  margin-top: 50px;
+}
+.signup h1 {
+  color: white;
+  font-size: 80px;
+  text-align: center;
+  text-shadow: 2px 2px #111;
+}
+
+@-webkit-keyframes animatedBackground {
+  from { background-position: 0 0; }
+  to { background-position: 100% 0; }
+}
