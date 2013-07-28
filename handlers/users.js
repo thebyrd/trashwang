@@ -5,15 +5,13 @@ module.exports = {
   signup: function (builder) {
     return builder
     .builds('app.db')
-    .builds('someNode')
-      .using('app.db')
     .respond('templates.users.signup', 'someNode')
   },
 
   newUser: function (builder) {
     return builder
       .builds('app.db')
-      .builds('someOtherNode')
+      .builds('createUser')
         .using('app.db')
       .redirect('/parties')
   }

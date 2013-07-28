@@ -2,11 +2,11 @@
 module.exports = {
   someNode: function (db) {
     return {
-      title: 'Trash Wang'
+      title: 'TRASH▲WANG'
     }
   },
 
-  someOtherNode: function (db) {
+  createUser: function (db) {
     return {
       title: 'TRASH▲WANG'
     }
