@@ -15,6 +15,9 @@
     "get": "parties.index",
     "post": "parties.create"
   },
+  "/new-party": {
+    "get": "parties.new"
+  },
   "/parties/:partyId": {
     "get": "parties.show",
     "post": "parties.update"

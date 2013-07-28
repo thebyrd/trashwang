@@ -67,6 +67,41 @@
 /**
  * create a party
  */
-{template .create}
-  Hello world
+{template .newParty}
+  <header class="bar-title">
+    <h1 class="title">Start a Party</a>
+  </header>
+  <div class="content content-padded">
+    <h2>Photos</h2>
+    <p class="message">Upload some photos of your party venue and items you need people to bring to make the party happen.</a>
+    <input class="camera-input" type="file" accept="image/png" capture="camera" name="picture">
+    <div class="eventual-slider slider">
+      <ul></ul>
+    </div>
+    <button class="button-positive button-block" data-action="add-image">add image</button>
+    
+    <h2>Trash Wang</h2>
+    <p class="message">Add "trash wang", items that you need to thow a party happen and how many of each item you need.</p>
+    <ul class="list">
+      <li>6 pack of craft beer <a class="button-negative" data-action="remove-item">remove</a></li>
+      <li>chartruese <a class="button-negative" data-action="remove-item">remove</a></li>
+    </ul>
+    <input class="new-item-input" type="text" placeholder="What do you need to rage?">
+    <button class="button-positive button-block" data-action="add-item">add</button>
+    
+    <h2>Party Info</h2>
+    <div class="input-group">
+      <div class="input-row">
+        <label>name</label>
+        <input type="text" name="name" placeholder="Hip Hop on the Beach">
+      </div>
+       <div class="input-row">
+        <label>location</label>
+        <input type="text" name="address" placeholder="123 abc street, SF, CA">
+      </div>
+    </div>
+    <button class="button-positive button-block" data-action="create-party">Throw a Party!!!</button>
+  </div>
 {/template}
+
+
