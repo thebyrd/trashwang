@@ -1,0 +1,43 @@
+body {
+  -webkit-perspective: 800;
+  -webkit-transform-style: preserve-3d;
+}
+
+.signup {
+  transform: translate3d(0,0,0);
+  -webkit-transform: translate3d(0,0,0);
+  -webkit-backface-visibility: hidden;
+}
+
+#animatedArea {
+  background: url('../img/nebula.jpg');
+  background-position: 0 0;
+  background-repeat: repeat-x;
+  height: 550px;
+  width: 320px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+
+  -webkit-animation: animatedBackground 40s linear infinite;
+  transform: translate3d(0,0,0);
+  -webkit-transform: translate3d(0,0,0);
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000;
+}
+
+
+.signup .headline {
+  margin-top: 50px;
+}
+.signup h1 {
+  color: white;
+  font-size: 80px;
+  text-align: center;
+  text-shadow: 2px 2px #111;
+}
+
+@-webkit-keyframes animatedBackground {
+  from { background-position: 0 0; }
+  to { background-position: 100% 0; }
+}

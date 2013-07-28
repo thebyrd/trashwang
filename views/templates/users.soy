@@ -4,21 +4,22 @@
  * Selfie Signup
  */
 {template .signup}
-  <header class="bar-title bar-title-negative">
-    <h1 class="title">ready to party?</h1>
-  </header>
-  <div class="content">
-    <div class="content-padded">
-      <p class="welcome">its pretty simple. post some pics of ur spot and what you need. we'll bring the party to you and make some trash wang.</p>
-      <form action="/new-user" method="post" enctype="multipart/form-data">
-        <div class="input-group">
-          <input type="text" name="name" placeholder="name">
-          <input type="text" name="digits" placeholder="ur digits">
-          <input class="camera-input" type="file" accept="image/png" capture="camera" name="picture" style="display: none">
+  <div class="content signup">
+    <div id="animatedArea">
+      <div class="content-padded">
+        <div class="headline">
+          <h1>TR▲SH W▲NG</h1>
         </div>
-        <button data-action="open-camera" class="button-main">take a selfie</button>
-        <button class="button-negative button-block" type="submit" style="display:none" id="new-user-submit">Let's Party &rarr;</button>
-      </form>
+        <form action="/new-user" method="post" enctype="multipart/form-data">
+          <div class="input-group">
+            <input type="text" name="name" placeholder="name">
+            <input type="text" name="digits" placeholder="ur digits">
+            <input class="camera-input" type="file" accept="image/png" capture="camera" name="picture" style="display: none">
+          </div>
+          <button data-action="open-camera" class="button-main button-block">sign in with a selfie</button>
+          <button class="button-negative button-block" type="submit" style="display:none" id="new-user-submit">Let's Party &rarr;</button>
+        </form>
+      </div>
     </div>
   </div>
 {/template}
