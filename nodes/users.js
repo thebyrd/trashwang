@@ -25,6 +25,8 @@ module.exports = {
     var ret
     if (!body) return null
 
+    console.log(body)
+
     var defer = Q.defer()
 
     db.exists('/users/index/byEmail/' + body.email, defer.makeNodeResolver())
@@ -32,8 +34,8 @@ module.exports = {
       if (data == 1) {
         res.redirect('/login')
       } else {
-        db.set('/users/index/byEmail/' + body.email, 1)
         db.incr('/users', function (err, newId) {
+          db.set('/users/index/byEmail/' + body.email, newId)
           var user = {
             id: newId,
             email: body.email,
@@ -41,7 +43,7 @@ module.exports = {
             photo: body.photo
           }
 
-          db.hmset('/users/' + newId, user)
+          db.hmset('/users/' + newId, user, function () {})
           console.log('new user', user)
           return session.user = user
         })
@@ -54,12 +56,16 @@ module.exports = {
 
     var user = getUserByEmail(db, body.email)
     console.log('tried to login with user:', user)
-    if (user.password === body.password) {
+    if (user && (user.password === body.password)) {
       session.user = user
       res.redirect('/parties')
     } else {
       res.redirect('/login')
     }
+  },
+
+  continueOrRedirect: function (res, session) {
+    session.user ? res.redirect('/login') : res.redirect('/parties')
   },
 
   getUserById: function (db, userId) {

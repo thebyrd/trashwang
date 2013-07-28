@@ -47,6 +47,5 @@ module.exports = {
 
     console.log('$update',body)
     return true
-    db.hmsetall()
   }
 }
