@@ -4,14 +4,14 @@ module.exports = {
    */
   signup: function (builder) {
     return builder
-    .builds('app.db')
-    .respond('templates.users.signup', 'someNode')
+    .respond('templates.users.signup')
   },
 
   newUser: function (builder) {
     return builder
       .builds('app.db')
       .builds('createUser')
+        .using('req.body')
         .using('app.db')
       .redirect('/parties')
   }

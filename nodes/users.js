@@ -1,14 +1,10 @@
 
 module.exports = {
-  someNode: function (db) {
+  createUser: function (db, body) {
+    // TODO(artem): hook this up
+    console.log('body', body)
     return {
-      title: 'TRASH▲WANG'
-    }
-  },
-
-  createUser: function (db) {
-    return {
-      title: 'TRASH▲WANG'
+      title: 'TR▲SH W▲NG'
     }
   }
 }
