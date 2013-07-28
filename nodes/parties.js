@@ -26,16 +26,11 @@ module.exports = {
 
     console.log('$view', partyId)
 
-    for (var i = 0, party; party = parties[i]; i++) {
-      if (party.id == partyId) return {party: party}
-    }
-
-    return null
-
-    // db.hgetall('/party/' + partyId, function (err, party) {
-    //   if (err) return null
-    //   else return party
-    // })
+    var defer = Q.defer()
+    db.hgetall('/parties/' + partyId, defer.makeNodeResolver())
+    return defer.promise.then(function (err, party) {
+      return party
+    })
   },
 
   createParty: function (db, body) {
