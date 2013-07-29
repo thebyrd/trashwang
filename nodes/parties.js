@@ -1,4 +1,5 @@
 var uuid = require('node-uuid')
+var fs = require('fs')
 var Q = require('kew')
 
 module.exports = {
@@ -11,7 +12,23 @@ module.exports = {
 
   getPartyById: function (db, partyId) {
   },
-  createParty: function (db, body, session) {
+
+  uploadPartyImages: function (cdn, images, partyName) {
+    if (images.length && partyName) {
+      var imageNames = []
+      images.forEach(function (img) {
+        var stream = fs.createReadStream(img.path)
+        var path = uuid.v1() + '-' + img.name
+        imageNames.push(path)
+        cdn.putStream(stream, path, {'Content-Length': img.size}, function (err, res) {
+          if (err) throw err
+        })
+      })
+      return imageNames
+    }
+  },
+
+  createParty: function (db, body, images, session) {
     if (!session.user) return {
       success: false,
       message: 'user is not authenticated'
