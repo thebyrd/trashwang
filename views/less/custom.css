@@ -97,7 +97,7 @@ body {
 }
 
 #animatedArea {
-  background: url('../img/nebula.jpg');
+  background: url('https://s3.amazonaws.com/trashwang/nebula.jpg');
   background-position: 0 0;
   background-repeat: repeat-x;
   height: 550px;

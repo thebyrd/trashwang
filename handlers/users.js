@@ -9,6 +9,20 @@ module.exports = {
     .respond('templates.users.signup', 'simpleLayout')
   },
 
+  /**
+   * Creates a user and redirects them to a list of parties.
+   * Expects to be handling a POST request
+   */
+  create: function (builder) {
+    return builder
+      .builds('app.db')
+      .builds('app.cdn')
+      .builds('createUser')
+        .using('app.db', 'app.cdn', 'req.body', 'req.files', 'res')
+      .redirect('/parties')
+  },
+
+
   login: function (builder) {
     return builder
       .respond('templates.users.login')
@@ -18,16 +32,6 @@ module.exports = {
     return builder
       .builds('app.db')
       .builds('loginUser')
-        .using('app.db', 'req.body', 'req.session', 'res')
-      .builds('continueOrRedirect')
-        .using('res', 'res.session')
-      .redirect('/parties')
-  },
-
-  create: function (builder) {
-    return builder
-      .builds('app.db')
-      .builds('createUser')
         .using('app.db', 'req.body', 'req.session', 'res')
       .redirect('/parties')
   },

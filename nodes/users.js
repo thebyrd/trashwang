@@ -1,12 +1,21 @@
-var Q = require('kew')
-
+var fs = require('fs')
 // TR▲SH W▲NG
 module.exports = {
-  createUser: function (db, body, session, res) {
-    if (body && body.name && body.email && body.password) {
-
-    
-
+  createUser: function (db, cdn, body, files) {
+    if (body && body.email && body.password && files.picture) {
+      // upload file
+      var stream = fs.createReadStream(files.picture.path)
+      var path = body.email + '-' + files.picture.name
+      cdn.putStream(stream, path, {'Content-Length': files.picture.size}, function (err, res) {
+        if (err) throw err
+      })
+      // create user
+      return db.putItem('trashwang', {
+        schema: 'user',
+        id: body.email,
+        password: body.password,
+        img: path
+      }).execute()
     } else {
       res.redirect('/signup')
     }
@@ -14,31 +23,28 @@ module.exports = {
 
   loginUser: function (db, body, session, res) {
     if (body && body.email && body.password) {
-
+      return db.getItem('trashwang')
+                .setHashKey('schema','users')
+                .setRangeKey('id', body.email)
+                .execute()
+                .then(function (data) {
+                  console.log(data)
+                  var user = data.result
+                  if (user.password == body.password) {
+                    session.user = user
+                    return true
+                  } else {
+                    res.redirect('/login')
+                  }
+                })
+    } else {
+      res.redirect('/login')
     }
   },
 
-  continueOrRedirect: function (res, session) {
-    session.user ? res.redirect('/login') : res.redirect('/parties')
-  },
-
-  getUserById: function (db, userId) {
-    if (!userId) return null
-
-    return getUserById(db, userId)
-  },
-
   getUserByEmail: function (db, userEmail) {
-    if (!userEmail) return null
-
-    return getUserByEmail(db, userEmail)
   },
 
-  filterUser: function (db, user) {
-    if (!user) return null
-    ;delete user.email
-    return user
-  },
   simpleLayout: function (req) {
     return {
       layout: 'templates.layout.simple'

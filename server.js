@@ -4,8 +4,6 @@ var app = express()
 var fs = require('fs')
 var path = require('path')
 
-var config = require('./config')
-
 app.use(express.favicon())
 app.use(express.logger('dev'))
 app.use(express.bodyParser())
@@ -33,11 +31,18 @@ soynode.compileTemplates(path.join(__dirname, 'views/templates'), function (err)
 app.use(express.static(path.join(__dirname, 'views')))
 app.use(express.errorHandler())
 
-app.db = new require('redis').createClient(config.redis.port, config.redis.host)
+var Dynamite = require('dynamite')
+app.db = new Dynamite.Client({
+  region: 'us-east-1',
+  accessKeyId: process.env.AWS_KEY,
+  secretAccessKey: process.env.AWS_SECRET
+})
 
-app.requireAuthenticated = function (req, res, next) {
-  res.session.user ? res.redirect('/login') : next()
-}
+app.cdn = new require('knox').createClient({
+  key: process.env.AWS_KEY,
+  secret: process.env.AWS_SECRET,
+  bucket: 'trashwang'
+})
 
 var shepherd = require('shepherd')
 
@@ -139,5 +144,4 @@ for (var route in routes) {
   }
 }
 
-app.listen(config.port)
-console.log('TrashWang on port', config.port)
+app.listen(3000)
