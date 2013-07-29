@@ -17,29 +17,37 @@ module.exports = {
         img: path
       }).execute()
     } else {
-      res.redirect('/signup')
+      return {
+        success: false,
+        message: 'invalid parameters'
+      }
     }
   },
 
-  loginUser: function (db, body, session, res) {
+  validateUser: function (db, body, req) {
     if (body && body.email && body.password) {
       return db.getItem('trashwang')
-                .setHashKey('schema','users')
-                .setRangeKey('id', body.email)
-                .execute()
-                .then(function (data) {
-                  console.log(data)
-                  var user = data.result
-                  if (user.password == body.password) {
-                    session.user = user
-                    return true
-                  } else {
-                    res.redirect('/login')
-                  }
-                })
+      .setHashKey('schema','user')
+      .setRangeKey('id', body.email)
+      .execute()
+      .then(function (data) {
+        console.log(data)
+        var user = data.result
+        if (data.result && user.password == body.password) {
+          req.session.user = user
+          return '/new-party'
+        } else {
+          return '/login'
+        }
+      })
     } else {
-      res.redirect('/login')
+      return '/login'
     }
+  },
+
+  logoutUser: function (req) {
+    delete req.session
+    return '/login'
   },
 
   getUserByEmail: function (db, userEmail) {

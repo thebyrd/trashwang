@@ -7,16 +7,14 @@ module.exports = {
       .builds('app.db')
       .builds('getAllParties')
         .using('app.db', 'req.params')
-      .respond('templates.parties.index', 'parties')
+      .respond('templates.parties.index')
   },
   create: function (builder) {
     return builder
       .builds('app.db')
       .builds('createParty')
-        .using('app.db', 'req.body')
-      .builds('partyById')
-        .using('app.db', 'createParty.id')
-      .respond('templates.parties.show', 'partyById')
+        .using('app.db', 'req.body', 'req.session')
+      .respond('templates.parties.show', 'createParty')
   },
   show: function (builder) {
     return builder

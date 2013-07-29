@@ -4,12 +4,18 @@ var app = express()
 var fs = require('fs')
 var path = require('path')
 
+
+app.use(express.static(path.join(__dirname, 'views')))
+app.use(express.cookieParser('#factsOnly'))
+app.use(express.session({secret: 'mad sus trashwang'}));
+app.use(function (req, res, next) {
+  console.log(req.url, '->', req.session)
+  req.url == '/' || req.url == '/login' || (req.session && req.session.user) ? next() : res.redirect('/login')
+})
 app.use(express.favicon())
 app.use(express.logger('dev'))
 app.use(express.bodyParser())
 app.use(express.methodOverride())
-app.use(express.cookieParser('#factsOnly'))
-app.use(express.session({secret: 'mad sus trashwang'}));
 app.use(app.router)
 app.use(require('less-middleware')({
   src: '/views',
@@ -28,7 +34,6 @@ soynode.compileTemplates(path.join(__dirname, 'views/templates'), function (err)
   console.log('Matador is fighting bulls on port 3000.')
 })
 
-app.use(express.static(path.join(__dirname, 'views')))
 app.use(express.errorHandler())
 
 var Dynamite = require('dynamite')
@@ -62,7 +67,7 @@ shepherd.Builder.prototype.respond = function (template, key) {
       data = key ? data[key] : data
       if (req.query.apiv) {
         res.json( {
-          success: true,
+          success: data.success || true,
           payload: data
         })
       } else {
@@ -85,6 +90,9 @@ shepherd.NodeInstance.prototype.respond = function () {
   return this._builder.respond.apply(this._builder, arguments)
 }
 
+/**
+ * If the route is the name of a node that is built it will redirct to its result
+ */
 shepherd.Builder.prototype.redirect = function (route) {
   var builder = this
   var fn = function (req, res, next) {
@@ -94,7 +102,7 @@ shepherd.Builder.prototype.redirect = function (route) {
       console.log('HANDLER ERROR:', e)
     })
     .then(function (data) {
-      res.redirect(route)
+      res.redirect(data[route] || route)
     })
   }
   return fn

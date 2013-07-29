@@ -28,12 +28,19 @@ module.exports = {
       .respond('templates.users.login')
   },
 
+  logout: function (builder) {
+    return builder
+      .builds('logoutUser')
+        .using('req')
+      .redirect('logoutUser')
+  },
+
   loginPost: function (builder) {
     return builder
       .builds('app.db')
-      .builds('loginUser')
-        .using('app.db', 'req.body', 'req.session', 'res')
-      .redirect('/parties')
+      .builds('validateUser')
+        .using('app.db', 'req.body', 'req')
+      .redirect('validateUser')
   },
 
   update: function (builder) {

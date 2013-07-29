@@ -122,13 +122,12 @@ str8.screens.NewPartyScreen.prototype._createParty = function (e) {
     name: document.querySelector('[name="name"]').value,
     address: document.querySelector('[name="address"]').value
   }
-  alert('when artem sets up the backend this will work')
-  // this._request.post('/parties?apiv=1', payload, {json: true})
-  //   .addCallback(function (response) {
-  //     console.log(response)
-  //     this._services.get('app').navigate('/parties/'+response.id)
-  //   })
-  //   .addErrback(function (err) {
-  //     throw err
-  //   })
+  this._request.post('/parties?apiv=1', payload, {json: true})
+    .addCallback(function (response) {
+      console.log(response)
+      this._services.get('app').navigate('/parties/'+response.id)
+    })
+    .addErrback(function (err) {
+      throw err
+    })
 }

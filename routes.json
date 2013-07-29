@@ -10,7 +10,9 @@
     "get": "users.login",
     "post": "users.loginPost"
   },
-
+  "/logout": {
+    "get": "users.logout"
+  },
   "/parties": {
     "get": "parties.index",
     "post": "parties.create"
