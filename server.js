@@ -21,7 +21,6 @@ app.use(require('less-middleware')({
   src: '/views',
   compress: true
 }))
-
 var soynode = require('soynode')
 soynode.setOptions({
   outputDir: '/tmp/soy',

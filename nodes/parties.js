@@ -14,6 +14,7 @@ module.exports = {
   },
 
   uploadPartyImages: function (cdn, images, partyName) {
+    console.log(images)
     if (images.length && partyName) {
       var imageNames = []
       images.forEach(function (img) {

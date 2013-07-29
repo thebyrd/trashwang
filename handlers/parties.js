@@ -15,7 +15,7 @@ module.exports = {
       .builds('uploadPartyImages')
         .using('app.cdn', 'req.body.images', {'partyName': 'req.body.name'})
       .builds('createParty')
-        .using('app.db', 'req.body', 'req.session')
+        .using('app.db', 'req.body', 'req.session', {'images': 'uploadPartyImages'})
       .respond('templates.parties.show', 'createParty')
   },
   show: function (builder) {
