@@ -23,5 +23,8 @@
   "/parties/:partyId": {
     "get": "parties.show",
     "post": "parties.update"
+  },
+  "/_/upload": {
+    "post": "parties.uploadImage"
   }
 }

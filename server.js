@@ -7,7 +7,8 @@ var path = require('path')
 
 app.use(express.static(path.join(__dirname, 'views')))
 app.use(express.cookieParser('#factsOnly'))
-app.use(express.session({secret: 'mad sus trashwang'}));
+var RedisStore = require('connect-redis')(express)
+app.use(express.session({secret: 'mad sus trashwang', store: new RedisStore()}))
 app.use(function (req, res, next) {
   console.log(req.url, '->', req.session)
   req.url == '/' || req.url == '/login' || (req.session && req.session.user) ? next() : res.redirect('/login')
@@ -21,6 +22,7 @@ app.use(require('less-middleware')({
   src: '/views',
   compress: true
 }))
+
 var soynode = require('soynode')
 soynode.setOptions({
   outputDir: '/tmp/soy',

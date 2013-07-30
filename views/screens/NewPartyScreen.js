@@ -116,18 +116,33 @@ str8.screens.NewPartyScreen.prototype._addImage = function () {
 }
 
 str8.screens.NewPartyScreen.prototype._createParty = function (e) {
-  var payload = {
-    images: this._images,
-    items: this._items,
-    name: document.querySelector('[name="name"]').value,
-    address: document.querySelector('[name="address"]').value
+  var self = this
+
+  var fd = new FormData()
+  for (var i = 0, image; image = this._images[i]; i++)
+      fd.append(i+'-'+image.name, image)
+
+  var xhr = new XMLHttpRequest()
+  xhr.open('POST', '/_/upload?apiv=1', true)
+  xhr.onload = function (data) {
+    var response = JSON.parse(xhr.response)
+    if (response.success) {
+      var payload = {
+        items: self._items,
+        name: document.querySelector('[name="name"]').value,
+        address: document.querySelector('[name="address"]').value,
+        images: response.payload
+      }
+      self._request.post('/parties?apiv=1', payload, {json: true})
+      .addCallback(function (response) {
+        self._services.get('app').navigate('parties/' + response.id)
+      })
+      .addErrback(function (err) {
+        throw err
+      })
+    } else {
+      throw new Error(response.message)
+    }
   }
-  this._request.post('/parties?apiv=1', payload, {json: true})
-    .addCallback(function (response) {
-      console.log(response)
-      this._services.get('app').navigate('/parties/'+response.id)
-    })
-    .addErrback(function (err) {
-      throw err
-    })
+  xhr.send(fd) // upload an image
 }
