@@ -12,10 +12,8 @@ module.exports = {
   create: function (builder) {
     return builder
       .builds('app.db')
-      .builds('uploadPartyImages')
-        .using('app.cdn', 'req.body.images', {'partyName': 'req.body.name'})
       .builds('createParty')
-        .using('app.db', 'req.body', 'req.session', {'images': 'uploadPartyImages'})
+        .using('app.db', 'req.body', 'req.session')
       .respond('templates.parties.show', 'createParty')
   },
   show: function (builder) {
@@ -37,5 +35,11 @@ module.exports = {
   new: function (builder) {
     return builder
       .respond('templates.parties.newParty')
+  },
+  uploadImage: function (builder) {
+    return builder
+      .builds('uploadPartyImages')
+        .using('app.cdn', 'req')
+      .respond('templates.users.signup', 'uploadPartyImages')
   }
 }
