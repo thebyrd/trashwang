@@ -29,6 +29,6 @@
   "checks": {
     "uselessCode": "OFF"
   },
-  "mode": "WHITESPACE",
+  "mode": "ADVANCED",
   "level": "VERBOSE"
 }

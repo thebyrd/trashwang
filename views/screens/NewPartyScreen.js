@@ -98,7 +98,7 @@ str8.screens.NewPartyScreen.prototype._addImage = function () {
     var file = event.target.files[0]
     self._images.push(file)
     if (file) {
-      var sliderEl = sliderElement = document.getElementsByClassName('eventual-slider')[0]
+      var sliderEl = document.getElementsByClassName('eventual-slider')[0]
       var src = URL.createObjectURL(file)
       sliderEl.className = 'slider'
 
@@ -116,12 +116,12 @@ str8.screens.NewPartyScreen.prototype._createParty = function (e) {
 
   var fd = new FormData()
   for (var i = 0, image; image = this._images[i]; i++)
-      fd.append(i+'-'+image.name, image)
+      fd.append(i + '-' + image.name, image)
 
   var xhr = new XMLHttpRequest()
   xhr.open('POST', '/_/upload?apiv=1', true)
   xhr.onload = function (data) {
-    var response = JSON.parse(xhr.response)
+    var response = JSON.parse(/** @type {string} */(xhr.response))
     if (response.success) {
       var payload = {
         items: self._items,

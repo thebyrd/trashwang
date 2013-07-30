@@ -123,8 +123,14 @@ str8.ui.SiteNav = function () {
    */
   this._transformCSSProperty
 
+  /**
+   * listener for transition end.
+   * @private {obv.shell.dom.Listener}
+   */
+  this._transitionEndListener
+
   // define the property and event name
-  for (name in this._transitionEndEventNames) {
+  for (var name in this._transitionEndEventNames) {
     if (this._skeletor.style[name] !== undefined) {
       this._transitionProperty = name
       this._transitionEndEventName = this._transitionEndEventNames[name][0]
@@ -155,8 +161,8 @@ str8.ui.SiteNav.prototype._addListeners = function () {
   }
 
   var slider = document.getElementsByClassName('slider')[0]  
-
-  window.addEventListener('touchstart', function (e) {
+  //window.addEventListener
+  obv.shell.dom.listen(window, 'touchstart', function (e) {
     if (isDescendant(slider, e.target)) return
     // reset direction property
     self._direction = ''
@@ -171,7 +177,7 @@ str8.ui.SiteNav.prototype._addListeners = function () {
     self._yStart = e.touches[0].screenY
   })
 
-  window.addEventListener('touchmove', function (e) {
+  obv.shell.dom.listen(window, 'touchmove', function (e) {
     if (isDescendant(slider, e.target)) return
     // don't allow scrolling the page up and down when nav open
     if (self._direction == 'vertical' && self._isOpen) e.preventDefault();
@@ -205,7 +211,7 @@ str8.ui.SiteNav.prototype._addListeners = function () {
 
   })
 
-  window.addEventListener('touchend', (self._touchEnd = function (e) {
+  obv.shell.dom.listen(window, 'touchend', (self._touchEnd = function (e) {
     if (isDescendant(slider, e.target)) return
     if (self._direction != 'horizontal') return
 
@@ -213,9 +219,8 @@ str8.ui.SiteNav.prototype._addListeners = function () {
     var transitionEnd = function () {
       if (!self._isOpen) self._clearTransform()
       self._page.style[self._transitionProperty] = ''
-      self._page.removeEventListener(self._transitionEndEventName, transitionEnd)
+      obv.shell.dom.unlisten(self._transitionEndListener)
       self._coffin.classList.remove('coffin-pulling')
-      console.log(self._coffin, self._isOpen ? 'add' : 'remove', '.coffin-open')
       self._coffin.classList[self._isOpen ? 'add' : 'remove']('coffin-open')
     }
 
@@ -227,7 +232,7 @@ str8.ui.SiteNav.prototype._addListeners = function () {
 
     self._translate3d(self._xEnd)
 
-    self._page.addEventListener(self._transitionEndEventName, transitionEnd)
+    this._transitionEndListener = obv.shell.dom.listen(self._page, self._transitionEndEventName, transitionEnd)
 
     if (self._xMovement == 270) transitionEnd()
 
