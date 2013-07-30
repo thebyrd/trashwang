@@ -35,7 +35,7 @@ module.exports = {
         var user = data.result
         if (data.result && user.password == body.password) {
           req.session.user = user
-          return '/new-party'
+          return '/parties'
         } else {
           return '/login'
         }
