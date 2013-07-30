@@ -6,8 +6,8 @@ module.exports = {
     return builder
       .builds('app.db')
       .builds('getAllParties')
-        .using('app.db', 'req.params')
-      .respond('templates.parties.index')
+        .using('app.db')
+      .respond('templates.parties.index', 'getAllParties')
   },
   create: function (builder) {
     return builder

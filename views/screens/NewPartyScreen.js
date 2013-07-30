@@ -34,11 +34,6 @@ str8.screens.NewPartyScreen = function (services, params, data) {
   this._request = this._services.get('request')
 
   /**
-   * @private {Element}
-   */
-  this._sliderElement = document.getElementsByClassName('eventual-slider')[0]
-
-  /**
    * @private {Array.<string>}
    */
   this._images = []
@@ -103,13 +98,14 @@ str8.screens.NewPartyScreen.prototype._addImage = function () {
     var file = event.target.files[0]
     self._images.push(file)
     if (file) {
+      var sliderEl = sliderElement = document.getElementsByClassName('eventual-slider')[0]
       var src = URL.createObjectURL(file)
-      self._sliderElement.className = 'slider'
+      sliderEl.className = 'slider'
 
       var child  = document.createElement('li')
       child.innerHTML = '<img src="' + src + '">'
 
-      var ul = self._sliderElement.firstChild
+      var ul = sliderEl.firstChild
       ul.firstChild ? ul.insertBefore(child, ul.firstChild) : ul.appendChild(child)
     }
   }
