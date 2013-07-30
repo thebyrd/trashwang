@@ -45,7 +45,7 @@ str8.screens.PartyScreen.prototype.cachePolicy = new obv.shell.CachePolicy.Expir
 str8.screens.PartyScreen.prototype.createDom = function () {
   this._request.get('/parties/' + this._id + '?apiv=1', {json: true})
     .addCallback(function (response) {
-      this.el.innerHTML = obv.shell.ij.render(templates.parties.index, {party: response.party})
+      this.el.innerHTML = obv.shell.ij.render(templates.parties.show, {party: response.party})
     }, this)
     .addErrback(function (err) {
       throw err

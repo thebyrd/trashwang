@@ -19,9 +19,9 @@ module.exports = {
   show: function (builder) {
     return builder
       .builds('app.db')
-      .builds('partyById')
+      .builds('getPartyById')
         .using('app.db', 'req.params.partyId')
-      .respond('templates.parties.show', 'partyById')
+      .respond('templates.parties.show', 'getPartyById')
   },
   update: function (builder) {
     return builder

@@ -1,6 +1,5 @@
 var fs = require('fs')
 var Q = require('kew')
-
 var crypto = require('crypto')
 
 /**
@@ -16,19 +15,34 @@ function generateId() {
 }
 
 
-
-
-
 module.exports = {
-  /**
-   * 
-   */
+
   getAllParties: function (db, params) {
-    return []
+    return {parties: []}
   },
 
   getPartyById: function (db, partyId) {
-    //TODO (david) stopped here
+    return db.getItem('trashwang')
+    .setHashKey('schema', 'party')
+    .setRangeKey('id', partyId)
+    .execute()
+    .then(function (data) {
+      var party = data.result
+      return Q.all(party.items.map(function (itemId) {
+        return db.getItem('trashwang')
+        .setHashKey('schema', 'item')
+        .setRangeKey('id', itemId)
+        .execute()
+        .then(function (data) {
+          return data.result
+        })
+      }))
+      .then(function (items) {
+        party.items = items
+        return {party: party}
+      })
+
+    })
   },
 
   uploadPartyImages: function (cdn, req) {
@@ -39,9 +53,7 @@ module.exports = {
         var stream = fs.createReadStream(image.path)
         var path = generateId() + '-' + image.name
         imageNames.push(path)
-        cdn.putStream(stream, path, {'Content-Length': image.size}, function (err, res) {
-          if (err) throw err
-        })
+        cdn.putStream(stream, path, {'Content-Length': image.size, 'x-amz-acl': 'public-read'}, function (err, res) {if (err) throw err})
       }
       return imageNames
     }
