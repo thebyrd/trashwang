@@ -17,8 +17,13 @@ function generateId() {
 
 module.exports = {
 
-  getAllParties: function (db, params) {
-    return {parties: []}
+  getAllParties: function (db) {
+    return db.newQueryBuilder('trashwang')
+    .setHashKey('schema', 'party')
+    .execute()
+    .then(function (data) {
+      return {parties: data.result || []}
+    })
   },
 
   getPartyById: function (db, partyId) {
