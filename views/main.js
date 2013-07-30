@@ -53,7 +53,7 @@ goog.require('obv.shell.ij')
                     .registerScreen('', str8.screens.SignupScreen)
                     .registerScreen('login', str8.screens.LoginScreen)
                     .registerScreen('parties', str8.screens.PartyListScreen)
-                    .registerScreen('parties/:postId', str8.screens.PartyScreen)
+                    .registerScreen('parties/:partyId', str8.screens.PartyScreen)
                     .registerScreen('new-party', str8.screens.NewPartyScreen)
   // We perform a navigation to the initial path.  This should cause a screen to be
   // created which will bind to the pre-rendered DOM.

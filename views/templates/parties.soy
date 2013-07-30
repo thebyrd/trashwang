@@ -29,34 +29,25 @@
  */
 {template .show}
   <header class="bar-title">
-    <a class="button-prev" href="/parties">
-      Previous
-    </a>
-    <h1 class="title">{$party.title}</h1>
+    <h1 class="title">{$party.name}</h1>
   </header>
   <div class="content">
     <div class="slider">
       <ul>
-        <li>
-          <img src="http://placehold.it/400x200">
-        </li>
-        <li>
-          <img src="http://placehold.it/400x200">
-        </li>
-        <li>
-          <img src="http://placehold.it/400x200">
-        </li>
+        {foreach $image in $party.images}
+          <li>
+            <img src="https://s3.amazonaws.com/trashwang/{$image}">
+          </li>
+        {/foreach}
       </ul>
     </div>
-    <h1>{$party.title}</h1>
-    <p>{$party.description}</p>
+    <h1>{$party.name}</h1>
     <ul class="list">
       <li class="list-divider">Trash Wang</li>
-    {foreach $want in $party.required}
+    {foreach $item in $party.items}
       <li>
-        <a data-action="bring-item">
-          {$want.title}
-          <span class="count">{$want.fullfilled} / {$want.needed}</span>
+        <a data-action="bring-item" data-id="{$item.id}">
+          {$item.name}
         </a>
       </li>  
     {/foreach}
