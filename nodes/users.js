@@ -1,7 +1,7 @@
 var fs = require('fs')
 // TR▲SH W▲NG
 module.exports = {
-  createUser: function (db, cdn, body, files) {
+  createUser: function (db, cdn, email, body, files) {
     if (body && body.email && body.password && files.picture) {
       // upload file
       var stream = fs.createReadStream(files.picture.path)
@@ -9,6 +9,28 @@ module.exports = {
       cdn.putStream(stream, path, {'Content-Length': files.picture.size}, function (err, res) {
         if (err) throw err
       })
+
+      // email user
+      email.sendEmail({
+        Source: 'david@someshit.io',
+        Destination: {
+          ToAddresses: [body.email]
+        },
+        Message: {
+          Subject: {
+            Data: 'Welcome to TR▲SH W▲NG',
+            Charset: 'utf-8'
+          },
+          Body: {
+            Text: {
+              Data: 'hi there,\nI just wanted to send you an email to let you know that here at someshit.io we be revolutionizing evra thang. thx for joining the cause.\n - trashwang core team'
+            }
+          }
+        },
+        ReplyToAddresses: ['david@someshit.io']
+      }, function (err, data){if (err) throw err})
+
+
       // create user
       return db.putItem('trashwang', {
         schema: 'user',

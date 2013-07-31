@@ -18,7 +18,7 @@ module.exports = {
       .builds('app.db')
       .builds('app.cdn')
       .builds('createUser')
-        .using('app.db', 'app.cdn', 'req.body', 'req.files', 'res')
+        .using('app.db', 'app.cdn', 'app.email', 'req.body', 'req.files', 'res')
       .redirect('/parties')
   },
 

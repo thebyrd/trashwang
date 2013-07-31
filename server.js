@@ -50,6 +50,13 @@ app.cdn = new require('knox').createClient({
   bucket: 'trashwang'
 })
 
+app.email = new require('aws-sdk').SES({
+  apiVersion: '2010-12-01',
+  region: 'us-east-1',
+  accessKeyId: process.env.AWS_KEY,
+  secretAccessKey: process.env.AWS_SECRET
+})
+
 var shepherd = require('shepherd')
 
 shepherd.NodeInstance.prototype.createHandler = function () {
