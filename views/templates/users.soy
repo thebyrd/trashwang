@@ -49,3 +49,17 @@
   </div>
 </div>
 {/template}
+
+/**
+ * Renders a particular user
+ * @param user
+ */
+{template .show}
+<header class="bar-title">
+  <h1 class="title">{$user.name}</h1>
+</header>
+<div class="content">
+  <h1>{$user.name}</h1>
+  <img src="https://s3.amazonaws.com/trashwang/{$user.img}">
+</div>
+{/template}

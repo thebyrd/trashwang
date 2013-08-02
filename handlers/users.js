@@ -21,20 +21,16 @@ module.exports = {
         .using('app.db', 'app.cdn', 'req.body', 'req.files', 'res')
       .redirect('/parties')
   },
-
-
   login: function (builder) {
     return builder
       .respond('templates.users.login')
   },
-
   logout: function (builder) {
     return builder
       .builds('logoutUser')
         .using('req')
       .redirect('logoutUser')
   },
-
   loginPost: function (builder) {
     return builder
       .builds('app.db')
@@ -42,7 +38,13 @@ module.exports = {
         .using('app.db', 'req.body', 'req')
       .redirect('validateUser')
   },
-
+  show: function (builder) {
+    return builder
+      .builds('app.db')
+      .builds('getUserByEmail')
+        .using('app.db', 'req.params.userEmail')
+      .respond('templates.users.show', 'getUserByEmail')
+  },
   update: function (builder) {
     return builder
       .builds('app.db')
