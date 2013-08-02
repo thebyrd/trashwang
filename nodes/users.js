@@ -1,4 +1,5 @@
 var fs = require('fs')
+
 // TR▲SH W▲NG
 module.exports = {
   createUser: function (db, cdn, body, files) {
@@ -51,6 +52,13 @@ module.exports = {
   },
 
   getUserByEmail: function (db, userEmail) {
+    return db.getItem('trashwang')
+    .setHashKey('schema', 'user')
+    .setRangeKey('id', userEmail)
+    .execute()
+    .then(function (data) {
+      return {user: data.result} || {success: false, message: 'user does not exist'}
+    })
   },
 
   simpleLayout: function (req) {
