@@ -2,9 +2,11 @@
   "/": {
     "get": "users.signup"
   },
-
   "/users": {
     "post": "users.create"
+  },
+  "/users/:userEmail": {
+    "get": "users.show"
   },
   "/login": {
     "get": "users.login",
