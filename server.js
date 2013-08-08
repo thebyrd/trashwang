@@ -10,7 +10,7 @@ app.use(express.cookieParser('#factsOnly'))
 var RedisStore = require('connect-redis')(express)
 app.use(express.session({secret: 'mad sus trashwang', store: new RedisStore()}))
 app.use(function (req, res, next) {
-  console.log(req.url, '->', req.session)
+  // console.log(req.url, '->', req.session)
   req.url == '/' || req.url == '/login' || (req.session && req.session.user) ? next() : res.redirect('/login')
 })
 app.use(express.favicon())
@@ -37,12 +37,14 @@ soynode.compileTemplates(path.join(__dirname, 'views/templates'), function (err)
 
 app.use(express.errorHandler())
 
-var Dynamite = require('dynamite')
-app.db = new Dynamite.Client({
-  region: 'us-east-1',
-  accessKeyId: process.env.AWS_KEY,
-  secretAccessKey: process.env.AWS_SECRET
-})
+var schemas = {}
+var files = fs.readdirSync('./schemas')
+for (var i = 0, name; name = files[i]; i++)
+  schemas[name.slice(0, -3)] = require('./schemas/'+name)
+
+var DatabaseClient = require('./DatabaseClient')
+
+app.db = new DatabaseClient(schemas)
 
 app.cdn = new require('knox').createClient({
   key: process.env.AWS_KEY,

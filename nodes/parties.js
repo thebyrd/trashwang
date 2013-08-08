@@ -18,35 +18,21 @@ function generateId() {
 module.exports = {
 
   getAllParties: function (db) {
-    return db.newQueryBuilder('trashwang')
-    .setHashKey('schema', 'party')
-    .execute()
-    .then(function (data) {
-      return {parties: data.result || []}
+    return db.party()
+    .then(function (parties) {
+      return {parties: parties || []}
     })
   },
 
   getPartyById: function (db, partyId) {
-    return db.getItem('trashwang')
-    .setHashKey('schema', 'party')
-    .setRangeKey('id', partyId)
-    .execute()
-    .then(function (data) {
-      var party = data.result
+    return db.party(partyId)
+    .then(function (party) {
       return Q.all(party.items.map(function (itemId) {
-        return db.getItem('trashwang')
-        .setHashKey('schema', 'item')
-        .setRangeKey('id', itemId)
-        .execute()
-        .then(function (data) {
-          return data.result
-        })
-      }))
-      .then(function (items) {
+        return db.item(itemId)
+      })).then(function (items) {
         party.items = items
         return {party: party}
       })
-
     })
   },
 
@@ -70,7 +56,7 @@ module.exports = {
       message: 'user is not authenticated'
     }
 
-    if (body && body.images && body.items && body.name && body.address) {
+    if (body && body.images && body.items && body.name && body.address) { //TODO (david) rails style strong parameters would be nice here
       
       var items = body.items.map(function (item) {
         return {
@@ -92,36 +78,21 @@ module.exports = {
 
       items = items.forEach(function (i) {
         i.partyId = party.id
-        db.putItem('trashwang', i)
-        .execute()
-        .then(function (data) {
-          if (data) {
-            console.log('added item')
-          } else {
-            console.log('dynamo failed to add item')
-          }
-        })
-        .fail(function (err) {
-          throw err
-        })
+        db.item(i.id, i) //TODO (david) these fail silently & this should happen behind the scenes
       })
 
-      return db.putItem('trashwang', party)
-      .execute()
-      .then(function (data) {
-        if (data) {
-          party.items = items // populates items
+      return db.party(party.id, party)
+      .then(function (party) {
+        if (party) {
+          party.items = items
           return party
-        } else {
+        } else { // TODO (david) this should actually happen in .fail
           console.log('dynamo says fuck you: ', data)
           return {
             success: false,
             message: 'dynamodb error'
           }
         }
-      })
-      .fail(function (err) {
-        throw err
       })
     } else {
       return {

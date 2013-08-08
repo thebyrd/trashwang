@@ -11,9 +11,7 @@ module.exports = {
         if (err) throw err
       })
       // create user
-      return db.putItem('trashwang', {
-        schema: 'user',
-        id: body.email,
+      return db.user(body.email, {
         password: body.password,
         img: path
       }).execute()
@@ -27,14 +25,9 @@ module.exports = {
 
   validateUser: function (db, body, req) {
     if (body && body.email && body.password) {
-      return db.getItem('trashwang')
-      .setHashKey('schema','user')
-      .setRangeKey('id', body.email)
-      .execute()
-      .then(function (data) {
-        console.log(data)
-        var user = data.result
-        if (data.result && user.password == body.password) {
+      return db.user(body.email)
+      .then(function (user) {
+        if (user && user.password == body.password) {
           req.session.user = user
           return '/parties'
         } else {
@@ -52,12 +45,9 @@ module.exports = {
   },
 
   getUserByEmail: function (db, userEmail) {
-    return db.getItem('trashwang')
-    .setHashKey('schema', 'user')
-    .setRangeKey('id', userEmail)
-    .execute()
-    .then(function (data) {
-      return {user: data.result} || {success: false, message: 'user does not exist'}
+    return db.user(userEmail)
+    .then(function (user) {
+      return {user: user} || {success: false, message: 'user does not exist'}
     })
   },
 
