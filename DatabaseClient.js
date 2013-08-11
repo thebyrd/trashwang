@@ -6,6 +6,7 @@
 //TODO (david) inject app name as an env variable
 var applicationName = 'trashwang'
 var Dynamite = require('dynamite')
+var assert = require('assert')
 
 /**
  * Constructor for database client.
@@ -43,6 +44,7 @@ function DatabaseClient (schemas) {
  */
 DatabaseClient.prototype._request = function (name, id, obj) {
   if (obj) {
+    this._validate(name, obj)
     obj.schema = name
     obj.id = id // TODO (david) make sure obj matches schema
     return this._driver.putItem(applicationName, obj).execute()
@@ -63,5 +65,23 @@ DatabaseClient.prototype._request = function (name, id, obj) {
     })
   }
 }
+
+/**
+ * Validate object being put in the database
+ * @param {string} name The name of the schema
+ * @param {Object} obj
+ */
+DatabaseClient.prototype._validate = function(name, obj) {
+  for (var field in obj) {
+    var expectedType = this._schemas[name][field]
+    if (typeof expectedType == 'object') {
+      assert(obj[field] instanceof Array, field + ' should be an array. We do not support embedded documents yet.')
+      for (var i = 0; i < obj[field].length; i++) assert(typeof obj[field][i] == expectedType[0])
+    } else {
+      assert(typeof obj[field] == expectedType, field + ' does not match schema ' + name)
+    }
+  }
+}
+
 
 module.exports = DatabaseClient

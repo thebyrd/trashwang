@@ -1,6 +1,6 @@
 module.exports = {
-  id: String,
-  name: String,
-  partyId: String, // indexed
-  broughtBy: String, // user id (indexed)
+  id: "string",
+  name: "string",
+  partyId: "string", // indexed
+  broughtBy: "string", // user id (indexed)
 }
