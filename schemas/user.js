@@ -1,6 +1,6 @@
 module.exports = {
-  id: String, // an email
-  name: String,
-  password: String,
-  img: String // path to profile image
+  id: "string", // an email
+  name: "string",
+  password: "string",
+  img: "string" // path to profile image
 }
