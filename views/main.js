@@ -14,7 +14,7 @@ goog.require('str8.screens.PartyListScreen')
 goog.require('str8.screens.PartyScreen')
 goog.require('str8.screens.NewPartyScreen')
 
-goog.require('str8.ui.SiteNav')
+// goog.require('str8.ui.SiteNav')
 
 goog.require('obv.shell.action')
 goog.require('obv.shell')
@@ -37,7 +37,7 @@ goog.require('obv.shell.ij')
     // 'activity-monitor': new obv.shell.ActivityMonitor(),
     'request': new obv.shell.RequestService(),
     // 'image': new obv.data.ImageService(services),
-    'site-nav': new str8.ui.SiteNav(),
+    // 'site-nav': new str8.ui.SiteNav(),
     'app': new obv.shell.App('/', services, String(obv.shell.ij.get('productName')))
   }
 
