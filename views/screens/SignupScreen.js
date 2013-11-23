@@ -60,6 +60,7 @@ str8.screens.SignupScreen.prototype._openCamera = function () {
     var file = files[0]
     if (file) {
       var submitButton = document.getElementById('new-user-submit')
+      console.log("clicking submit button")
       submitButton.click()
     }
   }
